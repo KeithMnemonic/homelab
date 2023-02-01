@@ -1,4 +1,6 @@
-Steps to setup a 3 node k3s cluster using a nginx loadbalancer and with SSL pass through termination
+Steps to setup a 3 node k3s cluster using a nginx loadbalancer.
+
+Source: https://docs.k3s.io/installation/ha-embedded
 
 1) Install nginx and kubectl on the host with the HA IP address.
 

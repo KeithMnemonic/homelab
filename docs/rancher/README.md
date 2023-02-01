@@ -72,11 +72,11 @@ stream {
 		
 	`systemctl restart nginx`
 		
-15) On either the nginx or cluster hosts, create the namespace where rancher will be installed.
+8) On either the nginx or cluster hosts, create the namespace where rancher will be installed.
 
 	`kubectl create namespace cattle-system`
 
-8) On the nginx server, create `/etc/dehydrated/postrun-hooks.d/update_rancher_certs.sh`  with the following:
+9) On the nginx server, create `/etc/dehydrated/postrun-hooks.d/update_rancher_certs.sh`  with the following:
 
 	```
     kubectl -n cattle-system create secret tls tls-rancher-ingress \
@@ -85,18 +85,18 @@ stream {
 		--dry-run --save-config -o yaml | kubectl apply -f -
     ```
 		
-9) Setup the deyhdrated timer service
+10) Setup the deyhdrated timer service
 
 	```	
     systemctl enable dehydrated.timer
 	systemctl start dehydrated.timer
     ```
 
-10) Create the following directory;
+11) Create the following directory;
 
 	`/etc/systemd/system/dehydrated.service.d/`
 		
-11) Edit an override file with:
+12) Edit an override file with:
 
     ```
     vi /etc/systemd/system/dehydrated.service.d/override.conf
@@ -108,14 +108,14 @@ stream {
 	WantedBy=multi-user.target
 	```
 	
-12) Enable and start the dehydrated service
+13) Enable and start the dehydrated service
 
 	```
     systemctl enable dehydrated.service
 	systemctl enable dehydrated.service
     ```
 
-13) On either the nginx or cluster node, check the secret was created.
+14) On either the nginx or cluster node, check the secret was created.
 
 	`kubectl get secret --namespace cattle-system`
 		
@@ -124,10 +124,14 @@ stream {
 	tls-rancher-ingress   kubernetes.io/tls   2      4s
     ```
 
-14) Install rancher using the "Bring your own certs" option
+15) Install helm on one or more of the cluster hosts using https://helm.sh/docs/intro/install/
+
+16) Add the rancher helm repopsitory using https://ranchermanager.docs.rancher.com/pages-for-subheaders/install-upgrade-on-a-kubernetes-cluster#1-add-the-helm-chart-repository
+
+17) Install rancher using the "Bring your own certs" option
 
 	```
     helm install rancher rancher-latest/rancher --namespace cattle-system --set hostname=rancher.bergerhome.org --set bootstrapPassword=admin --set ingress.tls.source=secret
     ```
 
-15) Access the rancher UI using the HA hostname.
+18) Access the rancher UI using the HA hostname.

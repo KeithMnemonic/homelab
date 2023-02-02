@@ -1,6 +1,6 @@
 Steps to setup a 3 node rancher cluster using a nginx loadbalancer and with SSL pass through termination.
 
-Prerequisites: Install an HA k3s per the README.md in docs/k3s
+Prerequisites: Install an HA k3s with metallb with README.md file in in docs/k3s docs/metallb
 
 Source: https://ranchermanager.docs.rancher.com/pages-for-subheaders/install-upgrade-on-a-kubernetes-cluster
 
@@ -26,6 +26,9 @@ Source: https://ranchermanager.docs.rancher.com/pages-for-subheaders/install-upg
 5) Check to ensure the certs are created in the `/etc/dehydrated/certs` directory
 
 6) Add entries into nginx for ports 80 and 443
+
+Note: This is no longer needed when using metallb. I left it in in case there is a deployment with servicelb and not metallb
+
 
 Example in nginx.conf or conf.d file
 
@@ -124,14 +127,17 @@ stream {
 	tls-rancher-ingress   kubernetes.io/tls   2      4s
     ```
 
-15) Install helm on one or more of the cluster hosts using https://helm.sh/docs/intro/install/
+15) Add the rancher helm repopsitory using https://ranchermanager.docs.rancher.com/pages-for-subheaders/install-upgrade-on-a-kubernetes-cluster#1-add-the-helm-chart-repository
 
-16) Add the rancher helm repopsitory using https://ranchermanager.docs.rancher.com/pages-for-subheaders/install-upgrade-on-a-kubernetes-cluster#1-add-the-helm-chart-repository
-
-17) Install rancher using the "Bring your own certs" option
+16) Install rancher using the "Bring your own certs" option
 
 	```
     helm install rancher rancher-latest/rancher --namespace cattle-system --set hostname=rancher.bergerhome.org --set bootstrapPassword=admin --set ingress.tls.source=secret
     ```
 
 18) Access the rancher UI using the HA hostname.
+
+19) To enable external-dns to create the record run:
+    ```
+    kubectl annotate ingress -n cattle-system rancher external-dns.alpha.kubernetes.io/cloudflare-proxied=false
+    ```

@@ -28,6 +28,11 @@ Source: https://rpi4cluster.com/k3s/k3s-storage-setting/
     NAME                TYPE           CLUSTER-IP    EXTERNAL-IP    PORT(S)        AGE
     longhorn-frontend   LoadBalancer   10.43.62.79   192.168.1.40   80:31209/TCP   57m
    ```
+7) Annotate the service so external-dns will create the DNS name
+   
+   ```
+    kubectl annotate service -n longhorn-system longhorn-frontend external-dns.alpha.kubernetes.io/cloudflare-proxied=false
+    kubectl annotate service -n longhorn-system longhorn-frontend external-dns.alpha.kubernetes.io/hostname=longhorn.bergerhome.org
 
-7) Login to the longhorn UI using the EXTERNAL-IP.
+8) Login to the longhorn UI using the EXTERNAL-IP.
 

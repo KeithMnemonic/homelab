@@ -13,6 +13,8 @@ The steps should be followed in the following order:
 
     zsh/README.md
     k3s/README.md
-    rancher/README.md
     metallb/README.md
+    external-dns/README.md
+    rancher/README.md
+    portainer/README.md
     longhorn/README.md

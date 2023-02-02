@@ -30,22 +30,23 @@ Source: https://docs.k3s.io/installation/ha-embedded
 
     ```
    tls-san:
-     - rancher.bergerhome.org
+     - k3s-cluster.bergerhome.org
      - 192.168.1.38
     ```
+    Note: Ensure the hostname resolves to the IP
 
 5) Install k3s on all 3 cluster hosts
 
 	1st server:
 
     ```
-    curl -sfL https://get.k3s.io | K3S_TOKEN=SECRET INSTALL_K3S_VERSION=v1.24.10+k3s1 sh -s - server --cluster-init
+    curl -sfL https://get.k3s.io | K3S_TOKEN=SECRET INSTALL_K3S_VERSION=v1.24.10+k3s1 sh -s - server --cluster-init  --disable=servicelb
     ```
 
 	2nd and 3rd server:
     
     ```
-    curl -sfL https://get.k3s.io | K3S_TOKEN=SECRET INSTALL_K3S_VERSION=v1.24.10+k3s1 sh -s - server  --server https://192.168.1.35:6443
+    curl -sfL https://get.k3s.io | K3S_TOKEN=SECRET INSTALL_K3S_VERSION=v1.24.10+k3s1 sh -s - server  --server https://k3s-cluster.bergerhome.org:6443  --disable=servicelb
     ```
 
 6) Copy `/etc/rancher/k3s/k3s.yaml` to the host running nginx into  `~/.kube/config`
@@ -54,9 +55,14 @@ Source: https://docs.k3s.io/installation/ha-embedded
  
 	For example:
     ```
-	server: https://rancher.bergerhome.org:6443
+	server: https://ks3-cluster.bergerhome.org:6443
     ```
 
 8) Check access to the cluster by running:
 
 	`kubectl get nodes -A`
+
+9)  Add any additional agents using
+        curl -sfL https://get.k3s.io | K3S_TOKEN=SECRET INSTALL_K3S_VERSION=v1.24.10+k3s1 sh -s - agent  --server https://ks3-cluster.bergerhome.org:6443  --disable=servicelb
+    ```
+10) Install helm on one or more of the cluster hosts using https://helm.sh/docs/intro/install/

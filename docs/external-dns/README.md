@@ -29,3 +29,11 @@ Install external-dns to integrate with cloudflare
     ```
     helm install -n external-dns external-dns bitnami/external-dns -f values.yaml
     ```
+
+5) For any services needing DNS entries add the following to the service
+    ```
+    external-dns.alpha.kubernetes.io/hostname: <svc-name>.bergerhome.org
+    external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+    ```
+
+

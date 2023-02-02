@@ -1,6 +1,6 @@
 Steps to install metallb
 
-Prerequisites: Install k3s and rancher using the README.md files in docs/k3s and docs/rancher.
+Prerequisites: Install k3s using the README.md files in docs/k3s.
 
 Source: https://metallb.universe.tf/installation/
 
@@ -10,7 +10,7 @@ Source: https://metallb.universe.tf/installation/
     helm install metallb metallb/metallb
     ```
 
-2) Setup namespace
+1) Setup namespace
 
    ```
    kubectl create namespace metallb-system
@@ -19,6 +19,12 @@ Source: https://metallb.universe.tf/installation/
    kubectl label namespace  metallb-system pod-security.kubernetes.io/audit=privileged
    kubectl describe namespace metallb-system
    ```
+
+2) Setup helm
+    ```
+    helm repo add metallb https://metallb.github.io/metallb
+    helm install -n metallb-system metallb metallb/metallb
+    ```
 
 3) Create IPAddressPool with:
    ```

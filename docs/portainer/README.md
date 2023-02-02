@@ -17,3 +17,8 @@ Steps to install portainer using the longhorn persisted storage.
     --set service.type=LoadBalancer \
     --set tls.force=true --set persistence.storageClass=longhorn
     ```
+4) Annotate the service so external-dns will create the DNS name
+   
+   ```
+    kubectl annotate service -n portainer portainer external-dns.alpha.kubernetes.io/cloudflare-proxied=false
+    kubectl annotate service -n portainer portainer  external-dns.alpha.kubernetes.io/hostname=portainer.bergerhome.org

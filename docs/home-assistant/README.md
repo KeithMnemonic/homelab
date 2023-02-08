@@ -41,6 +41,8 @@ Once https access is working you can lock it down via a client certificate.
 
    https://medium.com/@lukaszpinkosz/tls-client-authentication-for-your-home-assistant-e92452e26073
 
+   https://gist.github.com/rkaramandi/20a04a41536f3d7e6d2f26b0b9605ab6
+
    create private CA
 
        ```

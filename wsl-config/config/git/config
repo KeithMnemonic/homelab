@@ -1,0 +1,28 @@
+[includeIf "gitdir:~/repos/github/"]
+	    path = ~/repos/github/.gitconfig
+[includeIf "gitdir:~/repos/gitlab/"]
+	    path = ~/repos/gitlab/.gitconfig
+[includeIf "gitdir:~/repos/gitlab-suse/"]
+	    path = ~/repos/gitlab-suse/.gitconfig
+[includeIf "gitdir:~/repos/ardana/"]
+	    path = ~/repos/ardana/.gitconfig
+[url "git@gitlab.com:"]
+		insteadof = gl:
+[url "git@gitlab.com:KeithMnemonic/"]
+		insteadof = glk:
+[url "ssh://gitlab@gitlab.suse.de/"]
+		insteadof = susegl:
+[url "gitlab@gitlab.suse.de:kberger65"]
+		insteadof = suseglk:
+[url "git@github.com:"]
+		insteadof = gh:
+[url "git@github.com:KeithMnemonic"]
+		insteadof = ghk:
+[url "git://git.ci.prv.suse.net/"]
+		insteadof = provo:
+[url "ssh://KeithMnemonic@gerrit.prv.suse.net:29418/"]
+		insteadof = susegerrit:
+[url "ssh://kberger@review.opendev.org:29418/"]
+		insteadof = osreview:
+[url "git://git.opendev.org/"]
+		insteadof = osgit:

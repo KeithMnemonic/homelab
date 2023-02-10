@@ -11,6 +11,8 @@ https://www.phillipsj.net/posts/k3s-enable-nfs-storage/
 
 https://docs.k3s.io/helm#using-the-helm-crd
 
+https://michael-tissen.medium.com/setting-up-an-raspberrypi4-k3s-cluster-with-nfs-persistent-storage-a931ebb85737
+
 https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/blob/master/charts/nfs-subdir-external-provisioner/README.md
 
 1) Create the nfs-system namespace
